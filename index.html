@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>K Rakendu Vadan | Resume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      :root {
+        --accent: #ff0033;
+        --accent-soft: rgba(255, 0, 51, 0.25);
+        --card-bg-dark: #0d0d1a;
+        --bg-dark: #050510;
+        --bg-light: #fdfdfd;
+        --text-light: #111827;
+        --text-dark: #f5f5f7;
+        --muted-dark: #a0a0b8;
+        --muted-light: #4b5563;
+        --border-dark: #26263a;
+        --border-light: #e5e7eb;
+        --tag-bg-dark: #181827;
+        --tag-bg-light: #e5ecff;
+        --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--font-main);
+        line-height: 1.5;
+        padding: 20px;
+        transition: background 0.45s ease, color 0.3s ease;
+      }
+
+      /* theme backgrounds */
+      body.dark {
+        background: radial-gradient(
+          circle at top,
+          #181830 0,
+          var(--bg-dark) 55%
+        );
+        color: var(--text-dark);
+      }
+
+      body.light {
+        background: radial-gradient(
+          circle at top left,
+          #ffeaa7 0,
+          #ffefba 25%,
+          #a1c4fd 55%,
+          #c2e9fb 100%
+        );
+        color: var(--text-light);
+      }
+
+      /* THEME TOGGLE */
+      .theme-toggle {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        z-index: 1000;
+      }
+
+      .theme-toggle input {
+        display: none;
+      }
+
+      .toggle {
+        position: relative;
+        display: inline-block;
+        width: 150px;
+        height: 60px;
+        border-radius: 999px;
+        padding: 4px;
+        background: linear-gradient(
+          135deg,
+          #ffffff 0,
+          #d1d5db 50%,
+          #9ca3af 100%
+        );
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+        cursor: pointer;
+      }
+
+      .toggle-track {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        overflow: hidden;
+      }
+
+      .toggle-scene {
+        position: absolute;
+        inset: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      /* day vs night visibility */
+      body.light .scene-day {
+        opacity: 1;
+      }
+      body.light .scene-night {
+        opacity: 0;
+      }
+
+      body.dark .scene-day {
+        opacity: 0;
+      }
+      body.dark .scene-night {
+        opacity: 1;
+      }
+
+      /* thumb */
+      .toggle-thumb {
+        position: absolute;
+        top: 9px;
+        left: 10px;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #ffe47a;
+        box-shadow: 0 0 12px rgba(255, 228, 122, 0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        transition: transform 0.4s ease, background 0.4s ease,
+          box-shadow 0.4s ease;
+      }
+
+      .thumb-face {
+        width: 75%;
+        height: 75%;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #fff8dc 0,
+          #facc15 55%,
+          #f59e0b 100%
+        );
+        position: relative;
+      }
+
+      /* moon craters in dark mode */
+      body.dark .thumb-face {
+        background: radial-gradient(
+          circle at 30% 30%,
+          #f9fafb 0,
+          #e5e7eb 55%,
+          #d1d5db 100%
+        );
+      }
+
+      body.dark .thumb-face::before,
+      body.dark .thumb-face::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(148, 163, 184, 0.7);
+      }
+
+      body.dark .thumb-face::before {
+        width: 9px;
+        height: 9px;
+        left: 7px;
+        top: 6px;
+      }
+
+      body.dark .thumb-face::after {
+        width: 6px;
+        height: 6px;
+        right: 6px;
+        bottom: 7px;
+      }
+
+      /* remove craters for sun */
+      body.light .thumb-face::before,
+      body.light .thumb-face::after {
+        width: 0;
+        height: 0;
+      }
+
+      /* thumb positions */
+      body.light .toggle-thumb {
+        transform: translateX(0);
+      }
+
+      body.dark .toggle-thumb {
+        transform: translateX(82px);
+        background: #e5e7eb;
+        box-shadow: 0 0 14px rgba(209, 213, 219, 0.9);
+      }
+
+      /* PAGE CONTAINER (red aura a bit stronger) */
+      .page {
+        max-width: 1100px;
+        margin: 64px auto 16px;
+        background: var(--card-bg-dark);
+        border-radius: 20px;
+        border: 1px solid var(--border-dark);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 0 16px var(--accent),
+          0 0 60px var(--accent-soft);
+        padding: 28px 20px 32px;
+        transition: background 0.3s ease, border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      body.light .page {
+        background: #ffffff;
+        border: 1px solid var(--border-light);
+        box-shadow: 0 0 20px rgba(15, 23, 42, 0.18), 0 0 14px var(--accent-soft);
+      }
+
+      /* NEON GLOW CARDS (same as before) */
+      .neon-glow {
+        border: 1px solid var(--accent);
+        box-shadow: 0 0 7px var(--accent), 0 0 18px var(--accent-soft);
+      }
+
+      body.light .neon-glow {
+        box-shadow: 0 0 6px var(--accent), 0 0 14px var(--accent-soft);
+      }
+
+      /* HEADER */
+      .header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border-dark);
+      }
+
+      body.light .header {
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .title-block {
+        flex: 2 1 260px;
+      }
+
+      .name {
+        font-size: 2.3rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .role {
+        margin-top: 4px;
+        font-size: 0.92rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--muted-dark);
+      }
+
+      body.light .role {
+        color: var(--muted-light);
+      }
+
+      /* contact */
+      .contact {
+        flex: 1.2 1 220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        font-size: 0.9rem;
+      }
+
+      .contact a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .contact-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--muted-dark);
+      }
+
+      body.light .contact-label {
+        color: var(--muted-light);
+      }
+
+      /* phone red */
+      .contact-phone span {
+        color: var(--accent);
+      }
+
+      /* layout grid */
+      .content {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+        gap: 24px;
+        margin-top: 10px;
+      }
+
+      @media (max-width: 820px) {
+        body {
+          padding: 14px;
+        }
+        .page {
+          margin-top: 82px;
+          padding: 20px 14px 24px;
+        }
+        .content {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* sections & cards */
+      .section {
+        margin-bottom: 22px;
+      }
+
+      .section-title {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        color: var(--muted-dark);
+        margin-bottom: 10px;
+      }
+
+      .section-title span {
+        color: var(--accent);
+      }
+
+      body.light .section-title {
+        color: var(--muted-light);
+      }
+
+      .card {
+        background: var(--card-bg-dark);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        padding: 14px 14px 12px;
+        transition: background 0.3s ease, border-color 0.3s ease;
+      }
+
+      body.light .card {
+        background: #ffffff;
+        border-color: rgba(15, 23, 42, 0.08);
+      }
+
+      .summary {
+        font-size: 0.92rem;
+        color: var(--muted-dark);
+      }
+
+      body.light .summary {
+        color: var(--muted-light);
+      }
+
+      /* tags & skills */
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .tag {
+        font-size: 0.8rem;
+        padding: 4px 9px;
+        border-radius: 999px;
+        background: var(--tag-bg-dark);
+        color: var(--text-dark);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      body.light .tag {
+        background: var(--tag-bg-light);
+        color: var(--text-light);
+        border-color: rgba(15, 23, 42, 0.06);
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px 16px;
+        font-size: 0.9rem;
+      }
+
+      .skills-grid h4 {
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--muted-dark);
+      }
+
+      body.light .skills-grid h4 {
+        color: var(--muted-light);
+      }
+
+      /* projects */
+      .project-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .project {
+        padding: 8px 9px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      body.light .project {
+        background: rgba(15, 23, 42, 0.015);
+        border-color: rgba(15, 23, 42, 0.06);
+      }
+
+      .project-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 6px;
+        align-items: baseline;
+      }
+
+      .project-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      .project-tech {
+        font-size: 0.78rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .project-desc {
+        font-size: 0.86rem;
+        margin-top: 4px;
+        color: var(--muted-dark);
+      }
+
+      body.light .project-desc {
+        color: var(--muted-light);
+      }
+
+      /* education & highlights */
+      .item {
+        margin-bottom: 8px;
+      }
+
+      .item-title {
+        font-size: 0.92rem;
+        font-weight: 600;
+      }
+
+      .item-meta,
+      .item-note {
+        font-size: 0.82rem;
+        color: var(--muted-dark);
+      }
+
+      body.light .item-meta,
+      body.light .item-note {
+        color: var(--muted-light);
+      }
+
+      .highlights-list {
+        list-style: disc;
+        padding-left: 18px;
+        font-size: 0.86rem;
+        color: var(--muted-dark);
+      }
+
+      body.light .highlights-list {
+        color: var(--muted-light);
+      }
+
+      /* footer */
+      .footer {
+        margin-top: 6px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border-dark);
+        font-size: 0.75rem;
+        color: var(--muted-dark);
+        text-align: right;
+        opacity: 0.85;
+      }
+
+      body.light .footer {
+        border-top: 1px solid var(--border-light);
+        color: var(--muted-light);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- THEME TOGGLE -->
+    <div class="theme-toggle">
+      <input type="checkbox" id="theme-toggle" />
+      <label for="theme-toggle" class="toggle">
+        <div class="toggle-track">
+          <!-- DAY SCENE -->
+          <svg
+            class="toggle-scene scene-day"
+            viewBox="0 0 150 60"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="daySky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ffe066" />
+                <stop offset="40%" stop-color="#60a5ff" />
+                <stop offset="100%" stop-color="#1d4ed8" />
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="150" height="60" fill="url(#daySky)" />
+            <!-- clouds -->
+            <circle cx="20" cy="40" r="18" fill="#ffffff" />
+            <circle cx="40" cy="42" r="18" fill="#ffffff" />
+            <circle cx="60" cy="40" r="16" fill="#ffffff" />
+            <circle cx="80" cy="44" r="18" fill="#ffffff" />
+            <circle cx="10" cy="48" r="16" fill="#ffffff" />
+            <circle cx="35" cy="52" r="16" fill="#ffffff" />
+          </svg>
+
+          <!-- NIGHT SCENE -->
+          <svg
+            class="toggle-scene scene-night"
+            viewBox="0 0 150 60"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="nightSky" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#111827" />
+                <stop offset="50%" stop-color="#020617" />
+                <stop offset="100%" stop-color="#000000" />
+              </linearGradient>
+            </defs>
+            <rect
+              x="0"
+              y="0"
+              width="150"
+              height="60"
+              rx="28"
+              ry="28"
+              fill="url(#nightSky)"
+            />
+            <!-- rings -->
+            <circle cx="110" cy="30" r="32" fill="rgba(15,23,42,0.8)" />
+            <circle cx="110" cy="30" r="24" fill="rgba(17,24,39,0.9)" />
+            <!-- stars -->
+            <circle cx="20" cy="15" r="1.8" fill="#ffffff" />
+            <circle cx="38" cy="10" r="1.2" fill="#ffffff" />
+            <circle cx="55" cy="20" r="1.5" fill="#ffffff" />
+            <circle cx="70" cy="12" r="1.2" fill="#ffffff" />
+            <circle cx="30" cy="30" r="1.4" fill="#ffffff" />
+            <circle cx="60" cy="35" r="1.1" fill="#ffffff" />
+            <circle cx="80" cy="25" r="1.3" fill="#ffffff" />
+          </svg>
+        </div>
+
+        <!-- SUN / MOON THUMB -->
+        <div class="toggle-thumb">
+          <div class="thumb-face"></div>
+        </div>
+      </label>
+    </div>
+
+    <div class="page">
+      <!-- HEADER -->
+      <header class="header">
+        <div class="title-block">
+          <div class="name">K Rakendu Vadan</div>
+          <div class="role">
+            COMPUTER ENGINEERING STUDENT · PYTHON &amp; ESP32 DEVELOPER
+          </div>
+        </div>
+
+        <div class="contact">
+          <div>
+            <div class="contact-label">Email</div>
+            <a href="mailto:tufscar69@gmail.com">tufscar69@gmail.com</a>
+          </div>
+          <div class="contact-phone">
+            <div class="contact-label">Phone</div>
+            <span>+91 90148 77052</span>
+          </div>
+          <div>
+            <div class="contact-label">Links</div>
+            <a href="https://github.com/TUF-SCAR" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- MAIN CONTENT -->
+      <main class="content">
+        <!-- LEFT COLUMN -->
+        <section>
+          <!-- SUMMARY -->
+          <div class="section">
+            <h2 class="section-title"><span>//</span> Summary</h2>
+            <div class="card summary neon-glow">
+              A curious Computer Engineering student who loves building tools,
+              smart assistants, and small systems with Python and ESP32.
+              Comfortable with C, SQL, and basic web technologies, and actively
+              learning Python, HTML, CSS, JavaScript, and Java through hands-on
+              projects and structured practice.
+            </div>
+          </div>
+
+          <!-- SKILLS -->
+          <div class="section">
+            <h2 class="section-title"><span>//</span> Skills</h2>
+            <div class="card neon-glow">
+              <div class="skills-grid">
+                <div>
+                  <h4>Languages</h4>
+                  <div class="tag-list">
+                    <span class="tag">Python</span>
+                    <span class="tag">C</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Java</span>
+                  </div>
+                </div>
+
+                <div>
+                  <h4>Tools &amp; Tech</h4>
+                  <div class="tag-list">
+                    <span class="tag">VS Code</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">MySQL</span>
+                    <span class="tag">ESP32</span>
+                    <span class="tag">Arduino</span>
+                    <span class="tag">Windows</span>
+                  </div>
+                </div>
+
+                <div>
+                  <h4>Domains</h4>
+                  <div class="tag-list">
+                    <span class="tag">Python Scripting</span>
+                    <span class="tag">Automation</span>
+                    <span class="tag">IoT / Embedded</span>
+                    <span class="tag">Game Dev Basics</span>
+                    <span class="tag">Web Basics</span>
+                  </div>
+                </div>
+
+                <div>
+                  <h4>Soft Skills</h4>
+                  <div class="tag-list">
+                    <span class="tag">Problem Solving</span>
+                    <span class="tag">Self Learning</span>
+                    <span class="tag">Helping Friends with Tech</span>
+                    <span class="tag">Teamwork</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- INTERESTS -->
+          <div class="section">
+            <h2 class="section-title"><span>//</span> Interests</h2>
+            <div class="card neon-glow">
+              <div class="tag-list">
+                <span class="tag">Game Development</span>
+                <span class="tag">Anime</span>
+                <span class="tag">PC Building</span>
+                <span class="tag">Automation</span>
+                <span class="tag">Open Source</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT COLUMN -->
+        <section>
+          <!-- PROJECTS -->
+          <div class="section">
+            <h2 class="section-title"><span>//</span> Projects</h2>
+            <div class="card neon-glow">
+              <div class="project-list">
+                <article class="project">
+                  <div class="project-header">
+                    <div class="project-title">
+                      Jarvis Local – Offline PC Assistant
+                    </div>
+                    <div class="project-tech">
+                      Python · Automation · Windows
+                    </div>
+                  </div>
+                  <p class="project-desc">
+                    Voice-first assistant for Windows that can open apps, launch
+                    websites, type text, and take screenshots, while speaking
+                    each action using Windows SAPI. Designed with a whitelist
+                    system for safe app launching and a modular structure for
+                    adding new commands.
+                  </p>
+                </article>
+
+                <article class="project">
+                  <div class="project-header">
+                    <div class="project-title">
+                      30 Days of Python – Practice Repository
+                    </div>
+                    <div class="project-tech">Python · Learning</div>
+                  </div>
+                  <p class="project-desc">
+                    A structured collection of Python exercises following a
+                    30-day learning roadmap. Covers variables, functions, loops,
+                    list & dict operations, basic OOP, modules, and small
+                    scripts to build strong fundamentals.
+                  </p>
+                </article>
+
+                <article class="project">
+                  <div class="project-header">
+                    <div class="project-title">
+                      Python &amp; ESP32 Experiments
+                    </div>
+                    <div class="project-tech">Python · ESP32 · IoT</div>
+                  </div>
+                  <p class="project-desc">
+                    Ongoing experiments combining Python and ESP32, including
+                    concepts for an RC car, sensor-based systems, and local-only
+                    smart tools for everyday automation.
+                  </p>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- EDUCATION -->
+          <div class="section">
+            <h2 class="section-title"><span>//</span> Education</h2>
+            <div class="card neon-glow">
+              <div class="item">
+                <div class="item-title">Diploma in Computer Engineering</div>
+                <div class="item-meta">Andhra Pradesh State Board</div>
+                <div class="item-note">
+                  Currently in 2nd year as of December 2025.
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="item-title">Class 10 (CBSE)</div>
+                <div class="item-meta">Completed · 2024</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HIGHLIGHTS -->
+          <div class="section">
+            <h2 class="section-title"><span>//</span> Highlights</h2>
+            <div class="card neon-glow">
+              <ul class="highlights-list">
+                <li>
+                  Built an offline Windows assistant (Jarvis Local) focused on
+                  privacy and control.
+                </li>
+                <li>
+                  Actively learning Python, HTML, CSS, JavaScript, and Java
+                  through hands-on projects and structured practice.
+                </li>
+                <li>
+                  Exploring IoT with ESP32 for future projects like RC cars and
+                  smart plant monitoring.
+                </li>
+                <li>
+                  Helps friends with PC building, optimization, and basic
+                  software setup.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="footer">Resume last updated: 2025</footer>
+    </div>
+    <script>
+      const body = document.body;
+      const checkbox = document.getElementById("theme-toggle");
+
+      function setTheme(mode) {
+        if (mode === "light") {
+          body.classList.add("light");
+          body.classList.remove("dark");
+          checkbox.checked = true;
+        } else {
+          body.classList.add("dark");
+          body.classList.remove("light");
+          checkbox.checked = false;
+        }
+        localStorage.setItem("theme", mode);
+      }
+
+      // initial theme
+      const stored = localStorage.getItem("theme");
+      if (stored === "light" || stored === "dark") {
+        setTheme(stored);
+      } else {
+        setTheme("dark");
+      }
+
+      // toggle handler
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          setTheme("light");
+        } else {
+          setTheme("dark");
+        }
+      });
+    </script>
+  </body>
+</html>
