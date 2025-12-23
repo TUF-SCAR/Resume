@@ -197,7 +197,7 @@
         box-shadow: 0 0 14px rgba(209, 213, 219, 0.9);
       }
 
-      /* PAGE CONTAINER (red aura a bit stronger) */
+      /* PAGE CONTAINER */
       .page {
         max-width: 1100px;
         margin: 64px auto 16px;
@@ -217,7 +217,7 @@
         box-shadow: 0 0 20px rgba(15, 23, 42, 0.18), 0 0 14px var(--accent-soft);
       }
 
-      /* NEON GLOW CARDS (same as before) */
+      /* NEON GLOW CARDS */
       .neon-glow {
         border: 1px solid var(--accent);
         box-shadow: 0 0 7px var(--accent), 0 0 18px var(--accent-soft);
@@ -424,6 +424,7 @@
         justify-content: space-between;
         gap: 6px;
         align-items: baseline;
+        flex-wrap: wrap;
       }
 
       .project-title {
@@ -576,7 +577,8 @@
         <div class="title-block">
           <div class="name">K Rakendu Vadan</div>
           <div class="role">
-            COMPUTER ENGINEERING STUDENT · PYTHON &amp; ESP32 DEVELOPER
+            COMPUTER ENGINEERING STUDENT · PYTHON &amp; SYSTEMS BUILDER · GAME
+            DESIGN DOCS
           </div>
         </div>
 
@@ -604,11 +606,12 @@
           <div class="section">
             <h2 class="section-title"><span>//</span> Summary</h2>
             <div class="card summary neon-glow">
-              A curious Computer Engineering student who loves building tools,
-              smart assistants, and small systems with Python and ESP32.
-              Comfortable with C, and basic web technologies, and actively
-              learning Python, HTML, CSS, JavaScript, and Java through hands-on
-              projects and structured practice.
+              A Computer Engineering student who enjoys building practical tools,
+              automation systems, and structured game design documents.
+              Experienced with Python scripting and Windows automation, comfortable
+              with C fundamentals, and actively learning SQL and web basics.
+              Currently focused on a story-driven 3D action game project with
+              skill-based combat philosophy and clean repo documentation.
             </div>
           </div>
 
@@ -645,11 +648,11 @@
                 <div>
                   <h4>Domains</h4>
                   <div class="tag-list">
-                    <span class="tag">Python Scripting</span>
                     <span class="tag">Automation</span>
+                    <span class="tag">Python Scripting</span>
                     <span class="tag">IoT / Embedded</span>
-                    <span class="tag">Game Dev Basics</span>
-                    <span class="tag">Web Basics</span>
+                    <span class="tag">Game Systems Design</span>
+                    <span class="tag">Story Structuring</span>
                   </div>
                 </div>
 
@@ -658,7 +661,7 @@
                   <div class="tag-list">
                     <span class="tag">Problem Solving</span>
                     <span class="tag">Self Learning</span>
-                    <span class="tag">Helping Friends with Tech</span>
+                    <span class="tag">Documentation</span>
                     <span class="tag">Teamwork</span>
                   </div>
                 </div>
@@ -690,6 +693,19 @@
               <div class="project-list">
                 <article class="project">
                   <div class="project-header">
+                    <div class="project-title">Hoshikawa’s Breathing Curse</div>
+                    <div class="project-tech">Game Design · Story · Systems</div>
+                  </div>
+                  <p class="project-desc">
+                    A Windows-only 3D third-person action story game (low-poly,
+                    anime-inspired). Built with a structured repo for lore,
+                    playable chapter pacing, and locked combat rules focused on
+                    skill, restraint, and meaningful cost to power.
+                  </p>
+                </article>
+
+                <article class="project">
+                  <div class="project-header">
                     <div class="project-title">
                       Jarvis Local – Offline PC Assistant
                     </div>
@@ -716,7 +732,7 @@
                   <p class="project-desc">
                     A structured collection of Python exercises following a
                     30-day learning roadmap. Covers variables, functions, loops,
-                    list & dict operations, basic OOP, modules, and small
+                    list &amp; dict operations, basic OOP, modules, and small
                     scripts to build strong fundamentals.
                   </p>
                 </article>
@@ -763,20 +779,20 @@
             <div class="card neon-glow">
               <ul class="highlights-list">
                 <li>
+                  Designed and documented a skill-focused combat system for a 3D
+                  action story game project.
+                </li>
+                <li>
                   Built an offline Windows assistant (Jarvis Local) focused on
                   privacy and control.
                 </li>
                 <li>
-                  Actively learning Python, HTML, CSS, JavaScript, and Java
-                  through hands-on projects and structured practice.
+                  Actively learning Python, SQL, and web basics through hands-on
+                  repos and structured practice.
                 </li>
                 <li>
-                  Exploring IoT with ESP32 for future projects like RC cars and
-                  smart plant monitoring.
-                </li>
-                <li>
-                  Helps friends with PC building, optimization, and basic
-                  software setup.
+                  Explores IoT with ESP32 for future automation and sensor-based
+                  projects.
                 </li>
               </ul>
             </div>
@@ -787,6 +803,7 @@
       <!-- FOOTER -->
       <footer class="footer">Resume last updated: 2025</footer>
     </div>
+
     <script>
       const body = document.body;
       const checkbox = document.getElementById("theme-toggle");
